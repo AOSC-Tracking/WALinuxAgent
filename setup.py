@@ -254,6 +254,12 @@ def get_data_files(name, version, fullname):  # pylint: disable=R0912
         set_logrotate_files(data_files)
         set_udev_files(data_files)
         set_systemd_files(data_files, dest=systemd_dir_path)
+    elif name == 'aosc':
+        set_bin_files(data_files, dest=agent_bin_path)
+        set_conf_files(data_files, src=["config/aosc/waagent.conf"])
+        set_logrotate_files(data_files)
+        set_udev_files(data_files, dest="/etc/udev/rules.d/")
+        set_systemd_files(data_files, dest=systemd_dir_path, src=["init/aosc/waagent.service"])
     else:
         # Use default setting
         set_bin_files(data_files, dest=agent_bin_path)

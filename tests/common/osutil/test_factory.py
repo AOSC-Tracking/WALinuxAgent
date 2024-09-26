@@ -16,6 +16,7 @@
 #
 
 from azurelinuxagent.common.osutil.alpine import AlpineOSUtil
+from azurelinuxagent.common.osutil.aosc import AOSCUtil
 from azurelinuxagent.common.osutil.arch import ArchUtil
 from azurelinuxagent.common.osutil.bigip import BigIpOSUtil
 from azurelinuxagent.common.osutil.clearlinux import ClearLinuxUtil
@@ -352,4 +353,12 @@ class TestOsUtilFactory(AgentTestCase):
                           distro_version="",
                           distro_full_name="")
         self.assertTrue(isinstance(ret, PhotonOSUtil))
+        self.assertEqual(ret.get_service_name(), "waagent")
+
+    def test_get_osutil_it_should_return_aosc(self):
+        ret = _get_osutil(distro_name="aosc",
+                          distro_code_name="",
+                          distro_version="",
+                          distro_full_name="")
+        self.assertTrue(isinstance(ret, AOSCUtil))
         self.assertEqual(ret.get_service_name(), "waagent")

@@ -20,6 +20,7 @@ import azurelinuxagent.common.logger as logger
 from azurelinuxagent.common.version import DISTRO_NAME, DISTRO_CODE_NAME, DISTRO_VERSION, DISTRO_FULL_NAME
 from azurelinuxagent.common.utils.distro_version import DistroVersion
 from .alpine import AlpineOSUtil
+from .aosc import AOSCUtil
 from .arch import ArchUtil
 from .bigip import BigIpOSUtil
 from .clearlinux import ClearLinuxUtil
@@ -153,6 +154,9 @@ def _get_osutil(distro_name, distro_code_name, distro_version, distro_full_name)
 
     if distro_name == "fedora":
         return FedoraOSUtil()
+
+    if distro_name == "aosc":
+        return AOSCUtil()
 
     logger.warn("Unable to load distro implementation for {0}. Using default distro implementation instead.", distro_name)
     return DefaultOSUtil()
