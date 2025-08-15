@@ -254,6 +254,14 @@ def get_data_files(name, version, fullname):  # pylint: disable=R0912
         set_logrotate_files(data_files)
         set_udev_files(data_files)
         set_systemd_files(data_files, dest=systemd_dir_path)
+    elif name == 'aosc':
+        set_bin_files(data_files, dest=agent_bin_path,
+                      src=["bin/py3/waagent", "bin/waagent2.0"])
+        set_conf_files(data_files, src=["config/aosc/waagent.conf"])
+        set_logrotate_files(data_files)
+        set_udev_files(data_files)
+        set_systemd_files(data_files, dest=systemd_dir_path,
+                          src=["init/aosc/walinuxagent.service"])
     elif name == 'chainguard':
         set_bin_files(data_files, dest=agent_bin_path, src=["bin/py3/waagent"])
         set_conf_files(data_files, src=["config/chainguard/waagent.conf"])
@@ -356,4 +364,3 @@ setuptools.setup(
         'install': install
     }
 )
-
